@@ -1,6 +1,7 @@
 "use client";
 import { Layout } from "antd";
 import UMBreadCumb from "./UMBreadCumb";
+import Header from "./Header";
 const { Content } = Layout;
 
 const Contents = ({ children }: { children: React.ReactNode }) => {
@@ -13,6 +14,7 @@ const Contents = ({ children }: { children: React.ReactNode }) => {
         color: "black",
       }}
     >
+      <Header />
       <UMBreadCumb
         items={[
           {
