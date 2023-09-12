@@ -16,7 +16,11 @@ const Header = () => {
   ];
 
   return (
-    <AntHeader>
+    <AntHeader
+      style={{
+        background: "white",
+      }}
+    >
       <Row
         justify="end"
         align="middle"
