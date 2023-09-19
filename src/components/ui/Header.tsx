@@ -39,11 +39,9 @@ const Header = () => {
         }}
       >
         <Dropdown menu={{ items }}>
-          <a href="">
-            <Space wrap size={16}>
-              <Avatar size="large" icon={<UserOutlined />} />
-            </Space>
-          </a>
+          <Space wrap size={16}>
+            <Avatar size="large" icon={<UserOutlined />} />
+          </Space>
         </Dropdown>
       </Row>
     </AntHeader>
