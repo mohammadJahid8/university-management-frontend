@@ -29,11 +29,11 @@ const Login = () => {
         ...data,
       }).unwrap();
 
-      if (res?.data?.accessToken) {
+      if (res?.accessToken) {
         router.push("/profile");
       }
 
-      storeUserInfo({ accessToken: res?.data?.accessToken });
+      storeUserInfo({ accessToken: res?.accessToken });
     } catch (error) {
       console.error(error);
     }
