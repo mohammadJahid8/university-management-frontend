@@ -1,6 +1,7 @@
 "use client";
 
 import Contents from "@/components/ui/Contents";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import Sidebar from "@/components/ui/Sidebar";
 import { isLoggedIn } from "@/services/auth.service";
 import { Layout } from "antd";
@@ -23,7 +24,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }, [router, isLoading]);
 
   if (!isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   return (

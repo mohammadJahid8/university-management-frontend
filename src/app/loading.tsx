@@ -1,7 +1,9 @@
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+
 const Loading = () => {
   return (
     <div>
-      <p>loading...</p>
+      <LoadingSpinner />
     </div>
   );
 };
