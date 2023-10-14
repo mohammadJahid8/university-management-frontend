@@ -5,7 +5,7 @@ import React from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Layout>
+    <Layout hasSider>
       <Sidebar />
 
       <Contents>{children}</Contents>
