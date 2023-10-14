@@ -28,7 +28,19 @@ const Sidebar = () => {
         bottom: 0,
       }}
     >
-      <div className="demo-logo-vertical">PH UNI</div>
+      <div className="demo-logo-vertical">
+        <h2
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+            margin: "1rem 0",
+          }}
+        >
+          PH UNIVERSITY
+        </h2>
+      </div>
       <Menu
         theme="dark"
         defaultSelectedKeys={["1"]}
