@@ -39,7 +39,7 @@ const Sidebar = () => {
             margin: "1rem 0",
           }}
         >
-          PH UNIVERSITY
+          UM
         </h2>
       </div>
       <Menu
