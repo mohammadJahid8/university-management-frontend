@@ -39,7 +39,7 @@ const Sidebar = () => {
             margin: "1rem 0",
           }}
         >
-          UM
+          UMS
         </h2>
       </div>
       <Menu
