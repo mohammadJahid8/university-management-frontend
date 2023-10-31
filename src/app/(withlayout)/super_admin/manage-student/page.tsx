@@ -14,6 +14,10 @@ const ManageStudent = () => {
             label: `${role}`,
             link: `/${role}`,
           },
+          {
+            label: `manage-student`,
+            link: `/${role}/manage-student`,
+          },
         ]}
       />
       <h1>manage students page</h1>
