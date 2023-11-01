@@ -1,4 +1,5 @@
 "use client";
+import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import { getUserInfo } from "@/services/auth.service";
 
@@ -18,7 +19,8 @@ const ManageStudent = () => {
           },
         ]}
       />
-      <h1>manage user page</h1>
+
+      <ActionBar title="Manage user" />
     </div>
   );
 };

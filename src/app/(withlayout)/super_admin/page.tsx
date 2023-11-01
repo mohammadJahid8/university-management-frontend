@@ -1,4 +1,5 @@
 "use client";
+import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import { getUserInfo } from "@/services/auth.service";
 
@@ -14,7 +15,8 @@ const SuperAdminPage = () => {
           },
         ]}
       />
-      <h1>this page is for super admin</h1>
+
+      <ActionBar title="This page is for super admin" />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import { getUserInfo } from "@/services/auth.service";
 
@@ -18,7 +19,8 @@ const ResetPasswordPage = () => {
           },
         ]}
       />
-      <h1>reset password page</h1>
+
+      <ActionBar title="Reset password " />
     </div>
   );
 };
