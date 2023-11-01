@@ -1,6 +1,10 @@
 "use client";
 import StepperForm from "@/components/stepperForm/StepperForm";
-import StudentInfo from "@/components/studentForms/studentInfo";
+import StudenBasictInfo from "@/components/studentForms/StudentBasicInfo";
+import StudentGuardianInfo from "@/components/studentForms/StudentGuardianInfo";
+import StudentInfo from "@/components/studentForms/StudentInfo";
+import StudentLocalGuardianInfo from "@/components/studentForms/StudentLocalGuardianInfo";
+
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import { getUserInfo } from "@/services/auth.service";
@@ -15,17 +19,25 @@ const CreateStudent = () => {
     },
     {
       title: "Basic Information",
-      content: <StudentInfo />,
+      content: <StudenBasictInfo />,
     },
     {
       title: "Guardian Information",
-      content: <StudentInfo />,
+      content: <StudentGuardianInfo />,
     },
     {
       title: "Local Guardian Information",
-      content: <StudentInfo />,
+      content: <StudentLocalGuardianInfo />,
     },
   ];
+
+  const handleStudentSubmit = (data: any) => {
+    try {
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -44,7 +56,10 @@ const CreateStudent = () => {
 
       <ActionBar title="Create student" />
 
-      <StepperForm steps={steps} />
+      <StepperForm
+        submitHandler={(value) => handleStudentSubmit(value)}
+        steps={steps}
+      />
     </div>
   );
 };

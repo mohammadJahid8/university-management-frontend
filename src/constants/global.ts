@@ -12,6 +12,40 @@ export const genderOptions = [
     value: "others",
   },
 ];
+export const academicDepartmentOptions = [
+  {
+    label: "CSE",
+    value: "cse",
+  },
+  {
+    label: "SWE",
+    value: "swe",
+  },
+];
+export const academicFacultyOptions = [
+  {
+    label: "Engineering",
+    value: "engineering",
+  },
+  {
+    label: "Faculty of Science",
+    value: "faculty of science",
+  },
+];
+export const academicSemesterOptions = [
+  {
+    label: "Fall 2023",
+    value: "fall23",
+  },
+  {
+    label: "Autumn 2023",
+    value: "autumn23",
+  },
+  {
+    label: "Summer 2023",
+    value: "summer23",
+  },
+];
 export const departmentOptions = [
   {
     label: "Hr",

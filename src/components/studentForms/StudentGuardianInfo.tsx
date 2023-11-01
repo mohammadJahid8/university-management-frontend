@@ -2,16 +2,8 @@
 
 import { Col, Row } from "antd";
 import FormInput from "../forms/FormInput";
-import FormSelectField from "../forms/FormSelectField";
-import {
-  academicDepartmentOptions,
-  academicFacultyOptions,
-  academicSemesterOptions,
-  genderOptions,
-} from "@/constants/global";
-import UploadImage from "../ui/UploadImage";
 
-const StudentInfo = () => {
+const StudentGuardianInfo = () => {
   return (
     <div
       style={{
@@ -27,7 +19,7 @@ const StudentInfo = () => {
           marginBottom: "10px",
         }}
       >
-        Admin Information
+        Guardian Information
       </p>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col
@@ -39,9 +31,9 @@ const StudentInfo = () => {
         >
           <FormInput
             type="text"
-            name="student.name.firstName"
+            name="student.fatherName"
             size="large"
-            label="First name"
+            label="Father name"
           />
         </Col>
         <Col
@@ -53,9 +45,38 @@ const StudentInfo = () => {
         >
           <FormInput
             type="text"
-            name="student.name.middleName"
+            name="student.fatherOccupation"
             size="large"
-            label="Middle name"
+            label="Father occupation"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={6}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormInput
+            type="number"
+            name="student.fatherContactNo"
+            size="large"
+            label="Father contact no."
+          />
+        </Col>
+
+        <Col
+          className="gutter-row"
+          span={6}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormInput
+            type="text"
+            name="student.motherName"
+            size="large"
+            label="Mother name"
           />
         </Col>
         <Col
@@ -67,9 +88,9 @@ const StudentInfo = () => {
         >
           <FormInput
             type="text"
-            name="student.name.lastName"
+            name="student.motherOccupation"
             size="large"
-            label="Last name"
+            label="Mother occupation"
           />
         </Col>
         <Col
@@ -80,84 +101,29 @@ const StudentInfo = () => {
           }}
         >
           <FormInput
-            type="password"
-            name="password"
+            type="number"
+            name="student.motherContactNo"
             size="large"
-            label="Password"
+            label="Mother contact no."
           />
         </Col>
         <Col
           className="gutter-row"
-          span={8}
+          span={6}
           style={{
             marginBottom: "10px",
           }}
         >
-          <FormSelectField
+          <FormInput
+            type="text"
+            name="student.address"
             size="large"
-            name="student.academicDepartment"
-            options={academicDepartmentOptions}
-            label="Academic Department"
-            placeholder="Select"
+            label="Address"
           />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.academicFaculty"
-            options={academicFacultyOptions}
-            label="Academic Faculty"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.academicSemester"
-            options={academicSemesterOptions}
-            label="Academic Semester"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.gender"
-            options={genderOptions}
-            label="Gender"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <UploadImage />
         </Col>
       </Row>
     </div>
   );
 };
 
-export default StudentInfo;
+export default StudentGuardianInfo;

@@ -1,17 +1,12 @@
-"use client";
-
 import { Col, Row } from "antd";
+import ActionBar from "../ui/ActionBar";
 import FormInput from "../forms/FormInput";
+import FormDatepicker from "../forms/FormDatepicker";
 import FormSelectField from "../forms/FormSelectField";
-import {
-  academicDepartmentOptions,
-  academicFacultyOptions,
-  academicSemesterOptions,
-  genderOptions,
-} from "@/constants/global";
-import UploadImage from "../ui/UploadImage";
+import { bloodgroups } from "@/constants/global";
+import FormtTextarea from "../forms/FormTextarea";
 
-const StudentInfo = () => {
+const StudenBasictInfo = () => {
   return (
     <div
       style={{
@@ -27,137 +22,122 @@ const StudentInfo = () => {
           marginBottom: "10px",
         }}
       >
-        Admin Information
+        Basic Information
       </p>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col
           className="gutter-row"
-          span={6}
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormInput
+            type="email"
+            name="student.email"
+            size="large"
+            label="Email Address"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormInput
+            type="number"
+            name="student.contactNo"
+            size="large"
+            label="Contact Number"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormInput
+            type="number"
+            name="student.emergencyContactNo"
+            size="large"
+            label="Emergency Contact Number"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormDatepicker
+            name="student.dateOfBirth"
+            size="large"
+            label="Date of Birth"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
+          style={{
+            marginBottom: "10px",
+          }}
+        >
+          <FormSelectField
+            size="large"
+            name="student.bloodGroup"
+            options={bloodgroups}
+            label="Blood Group"
+            placeholder="Select"
+          />
+        </Col>
+        <Col
+          className="gutter-row"
+          span={8}
           style={{
             marginBottom: "10px",
           }}
         >
           <FormInput
             type="text"
-            name="student.name.firstName"
+            name="student.designation"
             size="large"
-            label="First name"
+            label="Designation"
           />
         </Col>
         <Col
           className="gutter-row"
-          span={6}
+          span={12}
           style={{
             marginBottom: "10px",
           }}
         >
-          <FormInput
-            type="text"
-            name="student.name.middleName"
-            size="large"
-            label="Middle name"
+          <FormtTextarea
+            name="student.presentAddress"
+            label="Present Address"
+            rows={4}
           />
         </Col>
         <Col
           className="gutter-row"
-          span={6}
+          span={12}
           style={{
             marginBottom: "10px",
           }}
         >
-          <FormInput
-            type="text"
-            name="student.name.lastName"
-            size="large"
-            label="Last name"
+          <FormtTextarea
+            name="student.permanentAddress"
+            label="Permanent Address"
+            rows={4}
           />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={6}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormInput
-            type="password"
-            name="password"
-            size="large"
-            label="Password"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.academicDepartment"
-            options={academicDepartmentOptions}
-            label="Academic Department"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.academicFaculty"
-            options={academicFacultyOptions}
-            label="Academic Faculty"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.academicSemester"
-            options={academicSemesterOptions}
-            label="Academic Semester"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <FormSelectField
-            size="large"
-            name="student.gender"
-            options={genderOptions}
-            label="Gender"
-            placeholder="Select"
-          />
-        </Col>
-        <Col
-          className="gutter-row"
-          span={8}
-          style={{
-            marginBottom: "10px",
-          }}
-        >
-          <UploadImage />
         </Col>
       </Row>
     </div>
   );
 };
 
-export default StudentInfo;
+export default StudenBasictInfo;
