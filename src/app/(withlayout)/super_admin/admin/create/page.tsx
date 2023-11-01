@@ -1,12 +1,17 @@
 "use client";
 import Form from "@/components/forms/Form";
+import FormDatepicker from "@/components/forms/FormDatepicker";
 import FormInput from "@/components/forms/FormInput";
 import FormSelectField from "@/components/forms/FormSelectField";
 import FormtTextarea from "@/components/forms/FormTextarea";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import UploadImage from "@/components/ui/UploadImage";
-import { departmentOptions, genderOptions } from "@/constants/global";
+import {
+  bloodgroups,
+  departmentOptions,
+  genderOptions,
+} from "@/constants/global";
 import { getUserInfo } from "@/services/auth.service";
 import { Button, Col, Row } from "antd";
 
@@ -182,7 +187,7 @@ const CreateStudent = () => {
                   type="email"
                   name="admin.email"
                   size="large"
-                  label="Email"
+                  label="Email Address"
                 />
               </Col>
               <Col
@@ -220,41 +225,39 @@ const CreateStudent = () => {
                   marginBottom: "10px",
                 }}
               >
+                <FormDatepicker
+                  name="admin.dateOfBirth"
+                  size="large"
+                  label="Date of Birth"
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                span={8}
+                style={{
+                  marginBottom: "10px",
+                }}
+              >
+                <FormSelectField
+                  size="large"
+                  name="admin.bloodGroup"
+                  options={bloodgroups}
+                  label="Blood Group"
+                  placeholder="Select"
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                span={8}
+                style={{
+                  marginBottom: "10px",
+                }}
+              >
                 <FormInput
-                  type="password"
-                  name="password"
+                  type="text"
+                  name="admin.designation"
                   size="large"
-                  label="Password"
-                />
-              </Col>
-              <Col
-                className="gutter-row"
-                span={8}
-                style={{
-                  marginBottom: "10px",
-                }}
-              >
-                <FormSelectField
-                  size="large"
-                  name="admin.gender"
-                  options={genderOptions}
-                  label="Gender"
-                  placeholder="Select"
-                />
-              </Col>
-              <Col
-                className="gutter-row"
-                span={8}
-                style={{
-                  marginBottom: "10px",
-                }}
-              >
-                <FormSelectField
-                  size="large"
-                  name="admin.managementDepartment"
-                  options={departmentOptions}
-                  label="Department"
-                  placeholder="Select"
+                  label="Designation"
                 />
               </Col>
               <Col

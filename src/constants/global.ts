@@ -26,3 +26,40 @@ export const departmentOptions = [
     value: "department danagement",
   },
 ];
+
+export const bloodgroups = [
+  {
+    label: "O+",
+    value: "o+",
+  },
+  // Add more blood groups here in the same format
+  {
+    label: "A+",
+    value: "a+",
+  },
+  {
+    label: "B+",
+    value: "b+",
+  },
+  {
+    label: "AB+",
+    value: "ab+",
+  },
+  {
+    label: "O-",
+    value: "o-",
+  },
+  {
+    label: "A-",
+    value: "a-",
+  },
+  {
+    label: "B-",
+    value: "b-",
+  },
+  {
+    label: "AB-",
+    value: "ab-",
+  },
+  // You can continue to add more blood groups as needed
+];
