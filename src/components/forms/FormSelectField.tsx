@@ -13,7 +13,7 @@ type SelectFieldProps = {
 
   size?: "large" | "small";
   value?: string | string[] | number;
-
+  placeholder: string;
   label?: string;
   defaultValue?: SelectOptions;
 };
@@ -23,7 +23,7 @@ const FormSelectField = ({
   options,
   size,
   value,
-
+  placeholder,
   label,
   defaultValue,
 }: SelectFieldProps) => {
@@ -41,6 +41,10 @@ const FormSelectField = ({
             options={options}
             value={value}
             size={size}
+            placeholder={placeholder}
+            style={{
+              width: "100%",
+            }}
           />
         )}
       />

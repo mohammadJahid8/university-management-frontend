@@ -4,7 +4,7 @@ import FormInput from "@/components/forms/FormInput";
 import FormSelectField from "@/components/forms/FormSelectField";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
-import { genderOptions } from "@/constants/global";
+import { departmentOptions, genderOptions } from "@/constants/global";
 import { getUserInfo } from "@/services/auth.service";
 import { Button, Col, Row } from "antd";
 
@@ -122,6 +122,23 @@ const CreateStudent = () => {
                   size="large"
                   name="admin.gender"
                   options={genderOptions}
+                  label="Gender"
+                  placeholder="Select"
+                />
+              </Col>
+              <Col
+                className="gutter-row"
+                span={8}
+                style={{
+                  marginBottom: "10px",
+                }}
+              >
+                <FormSelectField
+                  size="large"
+                  name="admin.managementDepartment"
+                  options={departmentOptions}
+                  label="Department"
+                  placeholder="Select"
                 />
               </Col>
             </Row>
