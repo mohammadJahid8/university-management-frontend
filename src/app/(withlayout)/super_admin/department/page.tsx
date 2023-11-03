@@ -1,6 +1,7 @@
 "use client";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
+import UMTable from "@/components/ui/UMTable";
 import { getUserInfo } from "@/services/auth.service";
 import { Button } from "antd";
 import Link from "next/link";
@@ -27,6 +28,8 @@ const Department = () => {
           <Button>Create Department</Button>
         </Link>
       </ActionBar>
+
+      <UMTable />
     </div>
   );
 };
