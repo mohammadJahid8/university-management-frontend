@@ -3,17 +3,24 @@ import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
+import { useAddDepartmentMutation } from "@/redux/api/departmentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 
 const CreateStudent = () => {
   const { role } = getUserInfo() as any;
 
+  const [addDepartment] = useAddDepartmentMutation();
+
   const onSubmit = async (data: any) => {
+    message.loading("Creating...");
+
     try {
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+      await addDepartment(data);
+      message.success("Department added Successfully");
+    } catch (error: any) {
+      console.log(error.message);
+      message.error(error.message);
     }
   };
 

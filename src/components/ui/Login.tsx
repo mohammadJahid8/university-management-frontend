@@ -7,7 +7,7 @@ import Image from "next/image";
 import Form from "@/components/forms/Form";
 import FormInput from "@/components/forms/FormInput";
 import { SubmitHandler } from "react-hook-form";
-import { useUseLoginMutation } from "@/redux/api/authApi";
+import { useUserLoginMutation } from "@/redux/api/authApi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   getUserInfo,
@@ -23,7 +23,7 @@ type FormValues = {
 };
 
 const Login = () => {
-  const [userLogin] = useUseLoginMutation();
+  const [userLogin] = useUserLoginMutation();
   const router = useRouter();
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     try {
