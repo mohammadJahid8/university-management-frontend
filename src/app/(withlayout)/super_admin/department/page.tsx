@@ -4,10 +4,15 @@ import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import UMTable from "@/components/ui/UMTable";
 import { useDepartmentsQuery } from "@/redux/api/departmentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  ReloadOutlined,
+} from "@ant-design/icons";
 
 const Department = () => {
   const { role } = getUserInfo() as any;
@@ -18,11 +23,13 @@ const Department = () => {
   const [page, setPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   query["limit"] = pageSize;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
+  query["searchTerm"] = searchTerm;
 
   const { data, isLoading } = useDepartmentsQuery({ ...query });
   const departments = data?.departments;
@@ -76,6 +83,12 @@ const Department = () => {
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
+  const resetFilter = () => {
+    setSortBy("");
+    setSortOrder("");
+    setSearchTerm("");
+  };
+
   return (
     <div>
       <UMBreadCumb
@@ -92,9 +105,31 @@ const Department = () => {
       />
 
       <ActionBar title="Department List">
-        <Link href="/super_admin/department/create">
-          <Button>Create Department</Button>
-        </Link>
+        <Input
+          type="text"
+          size="large"
+          placeholder="Search.."
+          style={{
+            width: "20%",
+          }}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <div>
+          <Link href="/super_admin/department/create">
+            <Button type="primary">Create Department</Button>
+          </Link>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <Button
+              type="primary"
+              style={{
+                marginLeft: "5px",
+              }}
+              onClick={resetFilter}
+            >
+              <ReloadOutlined />
+            </Button>
+          )}
+        </div>
       </ActionBar>
 
       <UMTable
