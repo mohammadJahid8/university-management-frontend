@@ -2,9 +2,12 @@
 import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import UMTable from "@/components/ui/UMTable";
-import { useDepartmentsQuery } from "@/redux/api/departmentApi";
+import {
+  useDeleteDepartmentMutation,
+  useDepartmentsQuery,
+} from "@/redux/api/departmentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -42,8 +45,21 @@ const Department = () => {
   }
 
   const { data, isLoading } = useDepartmentsQuery({ ...query });
+  const [deleteDepartment] = useDeleteDepartmentMutation();
   const departments = data?.departments;
   const meta = data?.meta;
+
+  const deleteHandler = async (id: string) => {
+    message.loading("Delete...");
+
+    try {
+      await deleteDepartment(id);
+      message.success("Department Deleted Successfully");
+    } catch (error: any) {
+      console.log(error.message);
+      message.error(error.message);
+    }
+  };
 
   const columns = [
     {
@@ -77,7 +93,11 @@ const Department = () => {
                 <EditOutlined />
               </Button>
             </Link>
-            <Button onClick={() => console.log(data)} type="primary" danger>
+            <Button
+              onClick={() => deleteHandler(data?.id)}
+              type="primary"
+              danger
+            >
               <DeleteOutlined />
             </Button>
           </div>
