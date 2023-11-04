@@ -7,7 +7,11 @@ type ActionBarProps = {
 
 const ActionBar = ({ title, children }: ActionBarProps) => {
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: "10px",
+      }}
+    >
       <h1>{title}</h1>
       <div
         style={{

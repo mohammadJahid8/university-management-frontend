@@ -64,19 +64,6 @@ const Department = () => {
     },
   ];
 
-  // const tableData = [
-  //   {
-  //     key: "1",
-  //     name: "John Brown",
-  //     age: 32,
-  //   },
-  //   {
-  //     key: "2",
-  //     name: "Jim Green",
-  //     age: 42,
-  //   },
-  // ];
-
   const onPaginationChange = (page: number, pageSize: number) => {
     console.log(page, pageSize);
     setPage(page);
