@@ -13,14 +13,15 @@ import {
   EyeOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
+import { useDebounced } from "@/redux/hooks";
 
 const Department = () => {
   const { role } = getUserInfo() as any;
 
   const query: Record<string, any> = {};
 
-  const [pageSize, setPageSize] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(2);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -29,7 +30,15 @@ const Department = () => {
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
-  query["searchTerm"] = searchTerm;
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+
+  if (!!debouncedTerm) {
+    query["searchTerm"] = debouncedTerm;
+  }
 
   const { data, isLoading } = useDepartmentsQuery({ ...query });
   const departments = data?.departments;
@@ -74,7 +83,7 @@ const Department = () => {
   const onPaginationChange = (page: number, pageSize: number) => {
     console.log(page, pageSize);
     setPage(page);
-    setPageSize(page);
+    setPageSize(pageSize);
   };
 
   const onTableChange = (pagination: any, filter: any, sorter: any) => {
