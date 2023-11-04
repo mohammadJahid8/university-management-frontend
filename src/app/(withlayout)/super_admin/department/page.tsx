@@ -7,7 +7,7 @@ import {
   useDepartmentsQuery,
 } from "@/redux/api/departmentApi";
 import { getUserInfo } from "@/services/auth.service";
-import { Button, Input, message } from "antd";
+import { Button, Input, Popconfirm, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -30,6 +30,18 @@ const Department = () => {
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
+  const [open, setOpen] = useState<boolean>(false);
+  const [itemId, setItemId] = useState<string>("");
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+  const showPopconfirm = (id: string) => {
+    setItemId(id);
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
   query["limit"] = pageSize;
   query["page"] = page;
   query["sortBy"] = sortBy;
@@ -50,11 +62,14 @@ const Department = () => {
   const meta = data?.meta;
 
   const deleteHandler = async (id: string) => {
+    setConfirmLoading(true);
     message.loading("Delete...");
 
     try {
       await deleteDepartment(id);
       message.success("Department Deleted Successfully");
+      setOpen(false);
+      setConfirmLoading(false);
     } catch (error: any) {
       console.log(error.message);
       message.error(error.message);
@@ -93,13 +108,25 @@ const Department = () => {
                 <EditOutlined />
               </Button>
             </Link>
-            <Button
-              onClick={() => deleteHandler(data?.id)}
-              type="primary"
-              danger
+
+            <Popconfirm
+              title="Delete Department!"
+              description="Are you sure to delete this Department?"
+              open={itemId === data?.id ? open : false}
+              onConfirm={() => deleteHandler(data?.id)}
+              okButtonProps={{
+                loading: confirmLoading,
+              }}
+              onCancel={handleCancel}
             >
-              <DeleteOutlined />
-            </Button>
+              <Button
+                onClick={() => showPopconfirm(data?.id)}
+                type="primary"
+                danger
+              >
+                <DeleteOutlined />
+              </Button>
+            </Popconfirm>
           </div>
         );
       },
