@@ -9,16 +9,30 @@ import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import UploadImage from "@/components/ui/UploadImage";
 import {
   bloodgroups,
-  departmentOptions,
+  // departmentOptions,
   genderOptions,
 } from "@/constants/global";
+import { useDepartmentsQuery } from "@/redux/api/departmentApi";
 import { adminSchema } from "@/schemas/admin";
 import { getUserInfo } from "@/services/auth.service";
+import { IDepartment } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Col, Row } from "antd";
 
 const CreateStudent = () => {
   const { role } = getUserInfo() as any;
+
+  const { data } = useDepartmentsQuery({ limit: 10, page: 1 });
+
+  // @ts-ignore
+  const departments: IDepartment[] = data?.departments;
+
+  const departmentOptions = departments?.map((department) => {
+    return {
+      label: department?.title,
+      value: department?.id,
+    };
+  });
 
   const onSubmit = async (data: any) => {
     try {
@@ -157,7 +171,7 @@ const CreateStudent = () => {
                   marginBottom: "10px",
                 }}
               >
-                <UploadImage />
+                <UploadImage name="file" />
               </Col>
             </Row>
           </div>
