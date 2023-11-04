@@ -14,6 +14,7 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 import { useDebounced } from "@/redux/hooks";
+import dayjs from "dayjs";
 
 const Department = () => {
   const { role } = getUserInfo() as any;
@@ -53,6 +54,9 @@ const Department = () => {
       title: "CreatedAt",
       dataIndex: "createdAt",
       sorter: true,
+      render: function (data: any) {
+        return data && dayjs(data).format("MMM D, YYYY hh:mm A");
+      },
     },
     {
       title: "Action",
@@ -65,12 +69,14 @@ const Department = () => {
               gap: "10px",
             }}
           >
-            <Button onClick={() => console.log(data)} type="primary">
+            {/* <Button onClick={() => console.log(data)} type="primary">
               <EyeOutlined />
-            </Button>
-            <Button onClick={() => console.log(data)} type="primary">
-              <EditOutlined />
-            </Button>
+            </Button> */}
+            <Link href={`/super_admin/department/edit/${data.id}`}>
+              <Button onClick={() => console.log(data)} type="primary">
+                <EditOutlined />
+              </Button>
+            </Link>
             <Button onClick={() => console.log(data)} type="primary" danger>
               <DeleteOutlined />
             </Button>
@@ -81,7 +87,6 @@ const Department = () => {
   ];
 
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log(page, pageSize);
     setPage(page);
     setPageSize(pageSize);
   };
