@@ -12,17 +12,20 @@ import {
   // departmentOptions,
   genderOptions,
 } from "@/constants/global";
+import { useAddAdminWithFormDataMutation } from "@/redux/api/adminApi";
 import { useDepartmentsQuery } from "@/redux/api/departmentApi";
 import { adminSchema } from "@/schemas/admin";
 import { getUserInfo } from "@/services/auth.service";
 import { IDepartment } from "@/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, message } from "antd";
 
 const CreateStudent = () => {
   const { role } = getUserInfo() as any;
 
   const { data } = useDepartmentsQuery({ limit: 10, page: 1 });
+
+  const [addAdminWithFormData] = useAddAdminWithFormDataMutation();
 
   // @ts-ignore
   const departments: IDepartment[] = data?.departments;
@@ -34,9 +37,23 @@ const CreateStudent = () => {
     };
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (values: any) => {
+    const obj = { ...values };
+
+    const file = obj["file"];
+
+    delete obj["file"];
+
+    const data = JSON.stringify(obj);
+
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", data);
+    message.loading("Adding...");
+
     try {
-      console.log(data);
+      await addAdminWithFormData(formData);
+      message.success("Admin created Successfully");
     } catch (error) {
       console.error(error);
     }
