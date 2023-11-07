@@ -3,7 +3,7 @@
 import Contents from "@/components/ui/Contents";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import Sidebar from "@/components/ui/Sidebar";
-import { isLoggedIn } from "@/services/auth.service";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
 import { Layout } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -16,9 +16,15 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   const router = useRouter();
 
+  const data = getUserInfo() as any;
+
+  const expDate = new Date(data?.exp * 1000);
+
+  const nowDate = new Date();
+
   useEffect(() => {
-    if (!isUserLoggedIn) {
-      router.push("login");
+    if (!isUserLoggedIn || expDate <= nowDate) {
+      router.push("/login");
     }
     setIsLoading(true);
   }, [router, isLoading]);
