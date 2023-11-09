@@ -20,6 +20,14 @@ export const adminApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.admin],
     }),
+    admin: build.query({
+      query: (id) => ({
+        url: `${ADMIN_URL}/${id}`,
+        method: "GET",
+      }),
+
+      providesTags: [tagTypes.admin],
+    }),
 
     addAdminWithFormData: build.mutation({
       query: (data) => ({
@@ -30,7 +38,21 @@ export const adminApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.admin],
     }),
+
+    updateAdmin: build.mutation({
+      query: ({ data, id }) => ({
+        url: `${ADMIN_URL}/${id}`,
+        method: "PATCH",
+        data: data,
+      }),
+      invalidatesTags: [tagTypes.admin],
+    }),
   }),
 });
 
-export const { useAddAdminWithFormDataMutation, useAdminsQuery } = adminApi;
+export const {
+  useAddAdminWithFormDataMutation,
+  useAdminsQuery,
+  useAdminQuery,
+  useUpdateAdminMutation,
+} = adminApi;

@@ -50,3 +50,7 @@ export type ResponseErrorType = {
   message?: string;
   errorMessages?: IResponseErrorMessage[];
 };
+
+export type IDProps = {
+  params: any;
+};

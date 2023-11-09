@@ -8,11 +8,8 @@ import {
   useUpdateDepartmentMutation,
 } from "@/redux/api/departmentApi";
 import { getUserInfo } from "@/services/auth.service";
+import { IDProps } from "@/types";
 import { Button, Col, Row, message } from "antd";
-
-type IDProps = {
-  params: any;
-};
 
 const EditDepartment = ({ params }: IDProps) => {
   const { role } = getUserInfo() as any;
