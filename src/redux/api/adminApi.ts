@@ -40,10 +40,10 @@ export const adminApi = baseApi.injectEndpoints({
     }),
 
     updateAdmin: build.mutation({
-      query: ({ data, id }) => ({
-        url: `${ADMIN_URL}/${id}`,
+      query: (data) => ({
+        url: `${ADMIN_URL}/${data?.id}`,
         method: "PATCH",
-        data: data,
+        data: data?.body,
       }),
       invalidatesTags: [tagTypes.admin],
     }),

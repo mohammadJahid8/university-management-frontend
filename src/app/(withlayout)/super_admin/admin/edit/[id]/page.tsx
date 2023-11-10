@@ -20,9 +20,7 @@ const EditAdmin = ({ params }: IDProps) => {
   const { role } = getUserInfo() as any;
   const { id } = params;
   const [updateAdmin] = useUpdateAdminMutation();
-  const { data, isLoading } = useAdminQuery(id);
-
-  console.log(data);
+  const { data: adminData, isLoading } = useAdminQuery(id);
 
   const { data: departmentData } = useDepartmentsQuery({ limit: 10, page: 1 });
 
@@ -40,41 +38,33 @@ const EditAdmin = ({ params }: IDProps) => {
     message.loading("Updating...");
 
     try {
-      const obj = { ...values };
-
-      const file = obj["file"];
-
-      delete obj["file"];
-
-      const dataStringify = JSON.stringify(obj);
-
-      const data = new FormData();
-      data.append("file", file as Blob);
-      data.append("data", dataStringify);
-
-      await updateAdmin({ data, id });
-      message.success("Admin Updated Successfully");
+      const res = await updateAdmin({ id, body: values }).unwrap();
+      // console.log(res);
+      if (res?.id) {
+        message.success("Admin Successfully Updated!");
+      }
     } catch (error: any) {
       console.log(error.message);
       message.error(error.message);
     }
   };
 
-  const defaultValue = {
-    // "admin.name.firstName": data?.name?.firstName || "",
-    admin: {
-      name: data?.name || "",
-      gender: data?.gender || "",
-      managementDepartment: data?.managementDepartment?.title || "",
-      bloodGroup: data?.bloodGroup || "",
-      designation: data?.designation || "",
-      email: data?.email || "",
-      contactNo: data?.contactNo || "",
-      emergencyContactNo: data?.emergencyContactNo || "",
-      presentAddress: data?.presentAddress || "",
-      permanentAddress: data?.permanentAddress || "",
-      // dateOfBirth: dayjs(data?.dateOfBirth) || "",
+  const defaultValues = {
+    name: {
+      firstName: adminData?.name?.firstName || "",
+      lastName: adminData?.name?.lastName || "",
+      middleName: adminData?.name?.middleName || "",
     },
+    dateOfBirth: adminData?.dateOfBirth || "",
+    email: adminData?.email || "",
+    designation: adminData?.designation || "",
+    contactNo: adminData?.contactNo || "",
+    emergencyContactNo: adminData?.emergencyContactNo || "",
+    permanentAddress: adminData?.permanentAddress || "",
+    presentAddress: adminData?.presentAddress || "",
+    bloodGroup: adminData?.bloodGroup || "",
+    gender: adminData?.gender || "",
+    managementDepartment: adminData?.managementDepartment?.id || "",
   };
 
   return (
@@ -109,7 +99,7 @@ const EditAdmin = ({ params }: IDProps) => {
         <Form
           submitHandler={onSubmit}
           // resolver={yupResolver(adminSchema)}
-          defaultValues={defaultValue}
+          defaultValues={defaultValues}
         >
           <div
             style={{
@@ -137,7 +127,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="text"
-                  name="admin.name.firstName"
+                  name="name.firstName"
                   size="large"
                   label="First name"
                 />
@@ -151,7 +141,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="text"
-                  name="admin.name.middleName"
+                  name="name.middleName"
                   size="large"
                   label="Middle name"
                 />
@@ -165,7 +155,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="text"
-                  name="admin.name.lastName"
+                  name="name.lastName"
                   size="large"
                   label="Last name"
                 />
@@ -193,7 +183,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormSelectField
                   size="large"
-                  name="admin.gender"
+                  name="gender"
                   options={genderOptions}
                   label="Gender"
                   placeholder="Select"
@@ -208,7 +198,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormSelectField
                   size="large"
-                  name="admin.managementDepartment"
+                  name="managementDepartment"
                   options={departmentOptions}
                   label="Department"
                   placeholder="Select"
@@ -251,7 +241,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="email"
-                  name="admin.email"
+                  name="email"
                   size="large"
                   label="Email Address"
                 />
@@ -265,7 +255,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="number"
-                  name="admin.contactNo"
+                  name="contactNo"
                   size="large"
                   label="Contact Number"
                 />
@@ -279,7 +269,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="number"
-                  name="admin.emergencyContactNo"
+                  name="emergencyContactNo"
                   size="large"
                   label="Emergency Contact Number"
                 />
@@ -292,7 +282,7 @@ const EditAdmin = ({ params }: IDProps) => {
                 }}
               >
                 <FormDatepicker
-                  name="admin.dateOfBirth"
+                  name="dateOfBirth"
                   size="large"
                   label="Date of Birth"
                 />
@@ -306,7 +296,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormSelectField
                   size="large"
-                  name="admin.bloodGroup"
+                  name="bloodGroup"
                   options={bloodgroups}
                   label="Blood Group"
                   placeholder="Select"
@@ -321,7 +311,7 @@ const EditAdmin = ({ params }: IDProps) => {
               >
                 <FormInput
                   type="text"
-                  name="admin.designation"
+                  name="designation"
                   size="large"
                   label="Designation"
                 />
@@ -334,7 +324,7 @@ const EditAdmin = ({ params }: IDProps) => {
                 }}
               >
                 <FormtTextarea
-                  name="admin.presentAddress"
+                  name="presentAddress"
                   label="Present Address"
                   rows={4}
                 />
@@ -347,7 +337,7 @@ const EditAdmin = ({ params }: IDProps) => {
                 }}
               >
                 <FormtTextarea
-                  name="admin.permanentAddress"
+                  name="permanentAddress"
                   label="Permanent Address"
                   rows={4}
                 />
