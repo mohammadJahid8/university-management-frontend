@@ -3,7 +3,7 @@ import ActionBar from "@/components/ui/ActionBar";
 import UMBreadCumb from "@/components/ui/UMBreadCumb";
 import UMTable from "@/components/ui/UMTable";
 import { getUserInfo } from "@/services/auth.service";
-import { Button } from "antd";
+import { Button, Popconfirm, message } from "antd";
 import Link from "next/link";
 import React, { useState } from "react";
 import {
@@ -15,7 +15,7 @@ import {
 } from "@ant-design/icons";
 import { IDepartment } from "@/types";
 import dayjs from "dayjs";
-import { useAdminsQuery } from "@/redux/api/adminApi";
+import { useAdminsQuery, useDeleteAdminMutation } from "@/redux/api/adminApi";
 import { useDebounced } from "@/redux/hooks";
 const ManageAdminPage = () => {
   const { role } = getUserInfo() as any;
@@ -29,6 +29,16 @@ const ManageAdminPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [adminId, setAdminId] = useState<string>("");
+  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+
+  const showPopconfirm = (id: string) => {
+    setAdminId(id);
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   query["limit"] = size;
   query["page"] = page;
@@ -48,6 +58,23 @@ const ManageAdminPage = () => {
 
   const admins = data?.admins;
   const meta = data?.meta;
+
+  const [deleteAdmin] = useDeleteAdminMutation();
+
+  const deleteHandler = async (id: string) => {
+    setConfirmLoading(true);
+    message.loading("Deleting...");
+
+    try {
+      await deleteAdmin(id);
+      message.success("Admin Deleted Successfully");
+      setOpen(false);
+      setConfirmLoading(false);
+    } catch (error: any) {
+      console.log(error.message);
+      message.error(error.message);
+    }
+  };
 
   const columns = [
     {
@@ -113,17 +140,25 @@ const ManageAdminPage = () => {
                 <EditOutlined />
               </Button>
             </Link>
-            <Button
-              type="primary"
-              // onClick={() => {
-              //   setOpen(true);
-              //   setAdminId(data);
-              // }}
-              danger
-              style={{ marginLeft: "3px" }}
+
+            <Popconfirm
+              title="Delete Admin!"
+              description="Are you sure to delete this Admin?"
+              open={adminId === data ? open : false}
+              onConfirm={() => deleteHandler(data)}
+              okButtonProps={{
+                loading: confirmLoading,
+              }}
+              onCancel={handleCancel}
             >
-              <DeleteOutlined />
-            </Button>
+              <Button
+                onClick={() => showPopconfirm(data)}
+                type="primary"
+                danger
+              >
+                <DeleteOutlined />
+              </Button>
+            </Popconfirm>
           </>
         );
       },
